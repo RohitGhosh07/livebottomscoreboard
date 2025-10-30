@@ -4,8 +4,6 @@
   const MATCH_ID = qs.get("match_id") || "2506";
 
   const els = {
-    seed1: document.getElementById('seed1'),
-    seed2: document.getElementById('seed2'),
     name1: document.getElementById('name1'),
     name2: document.getElementById('name2'),
     logo1: document.getElementById('logo1'),
@@ -46,10 +44,6 @@
       els.logo2.src = logo2Url;
       els.logo1.alt = t1;
       els.logo2.alt = t2;
-
-      // seeds (you can map something else here if needed)
-      els.seed1.textContent = safe(match.team1_id, "–");
-      els.seed2.textContent = safe(match.team2_id, "–");
 
       // tag
       const sport = safe(match.sports_name, "DARTS").toUpperCase();

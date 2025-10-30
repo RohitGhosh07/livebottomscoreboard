@@ -36,7 +36,7 @@ body{
 
 .row{
   display:grid;
-  grid-template-columns:56px 40px 1fr auto auto; /* logo, seed, name, divider, sets */
+  grid-template-columns:56px 1fr auto auto; /* logo, name, divider, sets */
   align-items:center;
   position:relative;
   padding: 0.65rem 0.9rem;
@@ -136,7 +136,7 @@ body{
 
 @media (max-width:640px){
   .board{min-width:unset;}
-  .row{grid-template-columns:44px 32px 1fr auto auto; padding: 0.5rem 0.7rem;}
+  .row{grid-template-columns:44px 1fr auto auto; padding: 0.5rem 0.7rem;}
   .sets{gap:14px; min-width:160px; padding-right:.8rem;}
   .name{font-size:.95rem;}
 }
