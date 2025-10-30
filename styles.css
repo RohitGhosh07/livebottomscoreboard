@@ -36,9 +36,10 @@ body{
 
 .row{
   display:grid;
-  grid-template-columns:56px 56px 1fr auto; /* widened logo col */
+  grid-template-columns:56px 40px 1fr auto auto; /* logo, seed, name, divider, sets */
   align-items:center;
   position:relative;
+  padding: 0.65rem 0.9rem;
 }
 
 .row + .row::before{
@@ -49,18 +50,16 @@ body{
 
 .seed{
   background:var(--card-2);
-  color:#e0e3ec;
+  color:var(--muted);
   text-align:center;
   font-weight:700;
-  padding:.85rem .25rem;
+  padding:.35rem .25rem;
   font-variant-numeric:tabular-nums;
+  font-size:0.9em;
+  border-radius:4px;
 }
 
-.flagwrap{
-  display:flex; align-items:center; gap:10px;
-  padding:.65rem .9rem;
-  min-width:0;
-}
+
 
 /* team logo (square) */
 .logo{
@@ -80,6 +79,7 @@ body{
   overflow:hidden;
   text-overflow:ellipsis;
   max-width:60vw;
+  margin-left: 10px;
 }
 
 .divider{
@@ -136,7 +136,7 @@ body{
 
 @media (max-width:640px){
   .board{min-width:unset;}
-  .row{grid-template-columns:44px 48px 1fr auto;}
+  .row{grid-template-columns:44px 32px 1fr auto auto; padding: 0.5rem 0.7rem;}
   .sets{gap:14px; min-width:160px; padding-right:.8rem;}
   .name{font-size:.95rem;}
 }
