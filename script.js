@@ -1,7 +1,13 @@
-(function(){
-  const API_BASE = "https://sports.forcempower.com/CSC2025/show_result_details_matchwise.php?match_id=";
-  const qs = new URLSearchParams(location.search);
-  const MATCH_ID = qs.get("match_id") || "2506";
+window.addEventListener('DOMContentLoaded', function() {
+  // Get sports_name from URL parameters or default to 'darts'
+  const urlParams = new URLSearchParams(window.location.search);
+  const sportsName = urlParams.get('sports_name') || 'darts';
+  const API_URL = `https://sports.forcempower.com/CSC2025/show_result_details_matchwise.php?sports_name=${encodeURIComponent(sportsName)}`;
+  
+  const state = {
+    games: [],
+    currentIndex: 0
+  };
 
   const els = {
     name1: document.getElementById('name1'),
@@ -21,13 +27,25 @@
 
   async function load(){
     try{
-      const res = await fetch(API_BASE + encodeURIComponent(MATCH_ID), { cache:'no-store' });
+      const res = await fetch(API_URL, { cache:'no-store' });
       if(!res.ok) throw new Error('HTTP '+res.status);
       const data = await res.json();
       if(data.process_sts !== "YES") throw new Error(data.process_msg || 'API error');
 
       const groups = data.schedule_and_results_details || {};
-      const match = Object.values(groups).flat().find(m => m.id == MATCH_ID);
+      const allGames = Object.values(groups).flat();
+      
+      if (allGames.length === 0) throw new Error('No games found');
+      
+      // Update games in state
+      state.games = allGames;
+      
+      // Handle game index overflow
+      if (state.currentIndex >= state.games.length) {
+        state.currentIndex = 0;
+      }
+      
+      const match = state.games[state.currentIndex];
       if(!match) throw new Error('Match not found in response');
 
       // ---- names (exactly as API sends) ----
@@ -49,7 +67,8 @@
       const sport = safe(match.sports_name, "DARTS").toUpperCase();
       const grp = match.group ? ` • ${match.group}` : "";
       const when = (match.date && match.time) ? ` • ${match.date} ${match.time}` : "";
-      els.tag.textContent = `${sport}${grp}${when}`;
+      const gameCounter = ` • GAME ${state.currentIndex + 1}/${state.games.length}`;
+      els.tag.textContent = `${sport}${grp}${when}${gameCounter}`;
 
       // legs/games -> sets
       const games = match.result_data || {};
@@ -104,6 +123,16 @@
     });
   }
 
+  // Add game switching functionality
+  function nextGame() {
+    if (state.games.length > 1) {
+      state.currentIndex = (state.currentIndex + 1) % state.games.length;
+      load();
+    }
+  }
+
+  // Switch games every 10 seconds
   load();
   setInterval(load, 10000);
-})();
+  setInterval(nextGame, 10000);
+});
