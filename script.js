@@ -48,8 +48,7 @@
       // tag
       const sport = safe(match.sports_name, "DARTS").toUpperCase();
       const grp = match.group ? ` • ${match.group}` : "";
-      const when = (match.date && match.time) ? ` • ${match.date} ${match.time}` : "";
-      els.tag.textContent = `${sport}${grp}${when}`;
+      els.tag.textContent = `${sport}${grp}`;
 
       // legs/games -> sets
       const games = match.result_data || {};
@@ -88,7 +87,7 @@
 
     }catch(e){
       console.error(e);
-      els.tag.textContent = 'DARTS • LIVE • (DATA ERROR)';
+      els.tag.textContent = 'NO DATA';
     }
   }
 
