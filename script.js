@@ -103,7 +103,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
     }catch(e){
       console.error(e);
-      els.tag.textContent = 'DARTS • LIVE • (DATA ERROR)';
+      els.tag.textContent = 'No data available';
     }
   }
 
