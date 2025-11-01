@@ -66,9 +66,8 @@ window.addEventListener('DOMContentLoaded', function() {
       // tag
       const sport = safe(match.sports_name, "DARTS").toUpperCase();
       const grp = match.group ? ` • ${match.group}` : "";
-      const when = (match.date && match.time) ? ` • ${match.date} ${match.time}` : "";
       const gameCounter = ` • GAME ${state.currentIndex + 1}/${state.games.length}`;
-      els.tag.textContent = `${sport}${grp}${when}${gameCounter}`;
+      els.tag.textContent = `${sport}${grp}${gameCounter}`;
 
       // legs/games -> sets
       const games = match.result_data || {};
