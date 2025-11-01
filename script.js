@@ -72,15 +72,11 @@ window.addEventListener('DOMContentLoaded', function() {
 
       // legs/games -> sets
       const games = match.result_data || {};
-      const maxLegs = 5;
       const orderedKeys = Object.keys(games)
-        .sort((a,b) => (parseInt(a.replace(/\D+/g,''))||0)-(parseInt(b.replace(/\D+/g,''))||0))
-        .slice(0, maxLegs);
+        .sort((a,b) => (parseInt(a.replace(/\D+/g,''))||0)-(parseInt(b.replace(/\D+/g,''))||0));
 
       const legs = [];
-      for(let i=0;i<maxLegs;i++){
-        const key = orderedKeys[i];
-        if(!key){ legs.push({ t1:"–", t2:"–", winner:0 }); continue; }
+      for(const key of orderedKeys){
         const g = games[key] || {};
         const s1 = parseInt(g.team_1_score || "0",10);
         const s2 = parseInt(g.team_2_score || "0",10);

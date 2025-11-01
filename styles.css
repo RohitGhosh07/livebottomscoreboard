@@ -90,9 +90,10 @@ body{
 .sets{
   display:flex; gap:18px; align-items:center;
   padding:.65rem 1rem;
-  min-width:220px;
+  min-width:auto;
   justify-content:flex-end;
   font-variant-numeric:tabular-nums;
+  flex-wrap: wrap;
 }
 
 .set{
