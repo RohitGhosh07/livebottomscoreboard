@@ -126,8 +126,18 @@ window.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // Switch games every 10 seconds
+  function prevGame() {
+    if (state.games.length > 1) {
+      state.currentIndex = (state.currentIndex - 1 + state.games.length) % state.games.length;
+      load();
+    }
+  }
+
+  // Add button click handlers
+  document.getElementById('nextButton').addEventListener('click', nextGame);
+  document.getElementById('prevButton').addEventListener('click', prevGame);
+
+  // Initial load
   load();
-  setInterval(load, 10000);
-  setInterval(nextGame, 10000);
+  setInterval(load, 10000); // Only refresh data every 10 seconds
 });
